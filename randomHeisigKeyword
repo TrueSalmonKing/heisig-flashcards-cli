@@ -1,0 +1,18 @@
+#!/bin/bash
+
+NUM=$1;
+
+MIN=0;
+MAX=276;
+
+RANGE=$(($MAX-$MIN+1));
+RESULT=$RANDOM
+let "RESULT %= $RANGE";
+RESULT=$(($RESULT+$MIN));
+
+if [ $# -eq 0 ]
+then
+	cat heisig-data.txt | grep -oE "^${RESULT}:.:([[:blank:]]|[a-zA-Z]{0,20}|-|')*" | sed 's/:.:/ /g';
+else
+	cat heisig-data.txt | grep -oE "^${NUM}:.:([[:blank:]]|[a-zA-Z]{0,20}|-|')*" | sed 's/:.:/ /g';
+fi
