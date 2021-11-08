@@ -1,1 +1,3 @@
-# heisig-flashcards-cli
+# Note
+
+Kanji set text file taken from http://ziggr.com/heisig/
