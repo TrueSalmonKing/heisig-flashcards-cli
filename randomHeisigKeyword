@@ -5,8 +5,8 @@ then
 	MIN=$1;
 	MAX=$2;
 else
-	MIN=0;
-	MAX=276;
+	MIN=1;
+	MAX=2042;
 	NUM=$1;
 fi
 
