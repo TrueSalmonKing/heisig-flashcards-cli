@@ -1,4 +1,4 @@
-#Heisig Flashcards CLI
+# Heisig Flashcards CLI
 
 Simple CLI Flashcard for Heisig Kanji Characters
 
