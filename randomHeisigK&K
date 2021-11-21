@@ -1,10 +1,27 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]
-then
-	ran=1;
-else
+# set resolve time to a default 3sec value if no value is specified
+if [ $# -eq 1 ] || [ $# -eq 3 ]; then
 	ran=$1;
+else
+	ran=3;
 fi
 
-val=$(./randomHeisigKeyword); echo $val; sleep $ran; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+# set the interval of from where the kanji is chosen 
+if [ $# -eq 2 ]; then
+	min=$1;
+	max=$2;
+
+	val=$(./randomHeisigKeyword $min $max); echo $val; sleep $ran; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+
+# set the interval of from where the kanji is chosen, when the resolve time value is also set 
+elif  [ $# -eq 3 ]; then
+	min=$2;
+	max=$3;
+
+	val=$(./randomHeisigKeyword $min $max); echo $val; sleep $ran; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+
+else
+	val=$(./randomHeisigKeyword); echo $val; sleep $ran; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+
+fi
