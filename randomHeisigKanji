@@ -12,7 +12,7 @@ fi
 
 
 RANGE=$(($MAX-$MIN+1));
-RESULT=$RANDOM
+RESULT=$(od -An -N2 -tu2 </dev/urandom);
 let "RESULT %= $RANGE";
 RESULT=$(($RESULT+$MIN));
 
