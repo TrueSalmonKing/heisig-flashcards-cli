@@ -57,12 +57,11 @@ get_Kanji(){
 
 check_arguments(){
 	if [ $args -gt 4 ]; then
-		echo "Numeber of arguments must not exceed 4 !!, "
-		echo "Please run once more with either of the following syntaxes:\n"
-		echo "./randomHeisigK\&K\n"
-		echo "./randomHeisigK\&K \$timer\n"
-		echo "./randomHeisigK\&K \$smallest_kanji_number \$largest_kanji_number\n"
-		echo "./randomHeisigK\&K \$timer \$smallest_kanji_number \$largest_kanji_number \$iterations\n"
+		echo "Numeber of arguments must not exceed 4 !!, Please run once more with either of the following syntaxes:"
+		echo "./randomHeisigK\&K"
+		echo "./randomHeisigK\&K \$timer"
+		echo "./randomHeisigK\&K \$smallest_kanji_number \$largest_kanji_number"
+		echo "./randomHeisigK\&K \$timer \$smallest_kanji_number \$largest_kanji_number \$iterations"
 		exit
 	fi
 }
