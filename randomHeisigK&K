@@ -79,7 +79,7 @@ timed_Answer(){
 		if [ "${REPLY}" = "q" ] || [ "${REPLY}" = "quit" ] || [ "${REPLY}" = "Q" ] || [ "${REPLY}" = "Quit" ]; then
 			score
 			exit
-		elif [ "${REPLY}" = "$val" ]; then
+		elif [ "${REPLY}" = "$kan_val" ]; then
 			echo "Correct !"; SCORE_CORR=$((++SCORE_CORR)); score; return
 		else
 			echo "Incorrect !"; SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: "${val}; score; return
