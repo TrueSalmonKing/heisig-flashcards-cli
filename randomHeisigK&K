@@ -1,6 +1,13 @@
 #!/bin/bash
 
-args=$#; min=0; max=0; resolv_t=0; itr=0
+
+# TO DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Add a second mode where the user can choose to output a kanji and input a keyword !
+
+#MODE 0 -> Keyword Output with Kanji Input
+#MODE 1 -> Kanji Output with Keyword Input
+
+MODE=0;args=$#; min=0; max=0; resolv_t=0; itr=0; kan_val=0; key_val=0; ID=0; SCORE_CORR=0; SCORE_WR=0
 
 setup(){
 	case $args in
@@ -41,16 +48,16 @@ get_Kanji(){
 	# set the interval of from where the kanji is chosen 
 	case $args in
 	2)
-		val=$(./randomHeisigKeyword $min $max); echo $val; sleep $resolv_t; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_value=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	3)
-		val=$(./randomHeisigKeyword $min $max); echo $val; sleep $resolv_t; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_value=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	4)
-		val=$(./randomHeisigKeyword $min $max); echo $val; sleep $resolv_t; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_value=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	*)
-		val=$(./randomHeisigKeyword); echo $val; sleep $resolv_t; val=$(grep -o '[0-9]*' <<< "$val"); ./randomHeisigKanji $val
+		val=$(./randomHeisigKeyword); echo $val;  ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_value=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	esac
 }
@@ -64,6 +71,28 @@ check_arguments(){
 		echo "./randomHeisigK\&K \$timer \$smallest_kanji_number \$largest_kanji_number \$iterations"
 		exit
 	fi
+}
+
+timed_Answer(){
+	read -t $resolv_t
+	if [ $? -eq 0 ]; then
+		if [ "${REPLY}" = "q" ] || [ "${REPLY}" = "quit" ] || [ "${REPLY}" = "Q" ] || [ "${REPLY}" = "Quit" ]; then
+			score
+			exit
+		elif [ "${REPLY}" = "$val" ]; then
+			echo "Correct !"; SCORE_CORR=$((++SCORE_CORR)); score; return
+		else
+			echo "Incorrect !"; SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: "${val}; score; return
+		fi
+	else
+		SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: ID "${ID} " VALUE "${val}; score; return
+	fi
+}
+
+score(){
+	echo "Total Score:"
+	echo "Correct: "${SCORE_CORR}
+	echo "Incorrect: "${SCORE_WR}
 }
 
 ####################################  MAIN  ####################################
