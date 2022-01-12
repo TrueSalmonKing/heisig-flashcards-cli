@@ -48,16 +48,16 @@ get_Kanji(){
 	# set the interval of from where the kanji is chosen 
 	case $args in
 	2)
-		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
+		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep -o "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	3)
-		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
+		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep -o "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	4)
-		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
+		val=$(./randomHeisigKeyword $min $max); echo $val; ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep -o "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID;
 		;;
 	*)
-		val=$(./randomHeisigKeyword); echo $val;  ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
+		val=$(./randomHeisigKeyword); echo $val;  ID=$(grep -o '[0-9]*' <<< "$val"); key_val=$(grep -o '[a-zA-Z\-]*' <<< $(echo $val)); kan_val=$( grep -o "["$'\xe4\xb8\x80'"-"$'\xe9\xbe\xa5'"]" <<< $(./randomHeisigKanji $ID)); timed_Answer; ./randomHeisigKanji $ID
 		;;
 	esac
 }
@@ -79,20 +79,18 @@ timed_Answer(){
 		if [ "${REPLY}" = "q" ] || [ "${REPLY}" = "quit" ] || [ "${REPLY}" = "Q" ] || [ "${REPLY}" = "Quit" ]; then
 			score
 			exit
-		elif [ "${REPLY}" = "$kan_val" ]; then
+		elif [ "${REPLY}" = $kan_val ]; then
 			echo "Correct !"; SCORE_CORR=$((++SCORE_CORR)); score; return
 		else
-			echo "Incorrect !"; SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: "${val}; score; return
+			echo "Incorrect !"; SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: ID ${ID}, VALUE ${kan_val}"; score; return
 		fi
 	else
-		SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: ID "${ID} " VALUE "${val}; score; return
+		SCORE_WR=$((++SCORE_WR)); echo "Correct Answer: ID ${ID}, VALUE ${kan_val}"; score; return
 	fi
 }
 
 score(){
-	echo "Total Score:"
-	echo "Correct: "${SCORE_CORR}
-	echo "Incorrect: "${SCORE_WR}
+	echo -e "\n>>>Total Score\n>>Correct: ${SCORE_CORR}\n>>Incorrect: ${SCORE_WR}\n"
 }
 
 ####################################  MAIN  ####################################
