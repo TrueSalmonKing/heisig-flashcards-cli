@@ -2042,3 +2042,8 @@
 1987:驚:wonder:wonder:wonder:22:2040:54
 2025:襲:attack:attack:attack:22:2041:55
 1455:鑑:specimen:specimen:specimen:23:2042:38
+
+#Custom Kanji Characters Not In RTK
+
+435.5:諦:renunciation/give up:-:-:16
+444.5:匂:aroma/fragrant:-:-:4
