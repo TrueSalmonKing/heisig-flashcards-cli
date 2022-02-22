@@ -2048,3 +2048,4 @@
 435.5:諦:renunciation/give up:-:-:16
 444.5:匂:aroma/fragrant:-:-:4
 556.5:誰:who:-:-:15
+596.5:恣:selfish:-:-:10
