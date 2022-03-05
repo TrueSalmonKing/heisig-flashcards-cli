@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Get the ID of a Kanji not in the Fourth Edition of Heisig's RTK
+a=$(cat heisig-data.txt | grep -oE '^[1-9]{1,3}\.[1-9]' | shuf | head -n 1)
+#Print Kanji and after a delay of 5 Seconds the Keyword
+./randomHeisigKanji $a && read -t 5 && ./randomHeisigKeyword $a
