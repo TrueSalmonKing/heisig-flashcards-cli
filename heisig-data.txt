@@ -2053,3 +2053,4 @@
 644.3:拭:wipe:-:-:9
 644.6:拉:yank:-:-:8
 670.5:喿:chirping of birds:-:-:13
+674.5:捗:make headway:-:-:11
